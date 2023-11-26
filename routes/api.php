@@ -58,5 +58,6 @@ Route::delete('/cultivos/{id}', [CultivoController::class, 'eliminar']);
 Route::post('/actualizar-rele/{userId}', [RelayStateController::class, 'actualizarRelayState']);
 
 
-
+//DATOS
+Route::post('/sensor-data', [SensorDataController::class, 'store']);
 
