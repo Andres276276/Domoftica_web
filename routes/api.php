@@ -43,7 +43,6 @@ Route::middleware('auth:api')->delete('/eliminar-cuenta', [UserController::class
 //ARDUINO DATOS
 Route::get('/sensor', [SensorController::class, 'M_Datos']);
 Route::delete('/datos_eliminar', [SensorController::class, 'EliminarTodo']);
-Route::post('/sensor-data', [SensorDataController::class, 'store']);
 Route::get('/sensor/ultimalec', [SensorController::class, 'ultimalectura']);
 
 
@@ -56,4 +55,8 @@ Route::delete('/cultivos/{id}', [CultivoController::class, 'eliminar']);
 
 //RELE
 Route::post('/actualizar-rele/{userId}', [RelayStateController::class, 'actualizarRelayState']);
+
+//DATOS SENSORES
+Route::post('/sensor-data', [SensorDataController::class, 'store']);
+
 
