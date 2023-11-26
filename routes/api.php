@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //ADMINISTRADOR
+Route::post('/usersad', [UserController::class, 'registroad']);
 Route::delete('/users/{id}', [UserController::class, 'eliminar']);     
 Route::get('/users/{id}', [UserController::class, 'buscarporid']);         
 Route::get('/users', [UserController::class, 'traertodos']);              
