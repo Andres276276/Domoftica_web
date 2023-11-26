@@ -1,0 +1,12 @@
+/* Body Cuerpo*/
+body{
+    overflow-x: hidden;
+}
+
+/* Fooster */
+.extended-footer {
+  background-color: #133A35; 
+  padding: 10px; 
+  width: 100vw;
+
+}

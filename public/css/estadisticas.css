@@ -1,0 +1,247 @@
+/* TITULO CONTROL DE SENSORES + IMG BORDE SUPERIOR ONDULADO */
+.imgnav{
+  width: 100vw;
+  margin-top: -80px;
+  z-index: 1;
+}
+
+.imgnavs{
+width: 140px;
+margin-top: -29px;
+}
+
+
+
+      .titulo{
+        color: white;
+        text-align: center;
+        letter-spacing: 7px; 
+        z-index: 2; 
+        font-size: 30px;
+
+      }
+
+      .titulo2{
+        color: white;
+        text-align: center;
+        letter-spacing: 7px; 
+        z-index: 2; 
+        font-size: 40px;
+
+      }
+
+
+
+/* Riego */
+
+.Riego-agua{
+    float: right;
+    justify-content: flex-end;
+  }
+
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} 
+
+/* Icono de ayuda */
+.section-info {
+    position: relative;
+    display: inline-block;
+
+  }
+
+  .question-icon {
+    position: absolute;
+    top: 22%;
+    left: -50px; 
+    color: #007736; 
+    z-index: 2; 
+  }
+
+  .tooltiptext {
+    visibility: hidden;
+    width: 280px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    font-size: 12px;
+    top: -9px;
+    left: -85px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 99;
+  }
+
+  .section-info:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  th {
+    width: 25%; 
+     }
+
+  /* Iconos de los td */
+
+  .fa-cloud {
+    color: rgb(88, 119, 139); 
+  }
+
+  .fa-thermometer-half {
+    color: red; 
+  }
+
+  .fa-leaf {
+    color: green; 
+  }
+
+  .fa-tint {
+    color: #0077b5; 
+  }
+
+
+/* Celdas color Humedad tierra */
+.humedad-celda {
+    padding: 5px;
+    color: black;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.estado-muy-humedo {
+    background: red;
+    opacity: 1;
+    transition: background 0.5s, opacity 0.5s;
+}
+
+.estado-humedo {
+    background: red;
+    opacity: 0.7;
+    transition: background 0.5s, opacity 0.5s;
+}
+
+.estado-estable {
+    background: lightgreen; /* Color amigable para el estado "estable" */
+    opacity: 1;
+    transition: background 0.5s, opacity 0.5s;
+}
+
+.estado-seco {
+    background: yellow;
+    opacity: 1;
+    transition: background 0.5s, opacity 0.5s;
+}
+
+.estado-muy-seco {
+    background: yellow;
+    opacity: 0.7;
+    transition: background 0.5s, opacity 0.5s;
+}
+
+
+/* BOTONES RIGO MANUAL Y AUTOMATICO */
+
+.bg-black-translucent_boton{
+  background-color: rgba(131, 130, 130, 0.7); 
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  color: white; 
+  padding: 20px;
+}
+
+/* CONTAINER DE TABLA DE ESTADISTICAS ARDUINO */
+.bg-black-translucent_datos{
+  background-color: rgba(226, 223, 223, 0.7); 
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+    color: white; 
+    padding: 20px; 
+    height: 900px;
+}
+
+
+
+
+
+
+
+
+#toggleButton {
+    background-color: #007BFF;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+ }
+
+ #toggleButton.on {
+    background-color: #FF0000; 
+ }
+
+
+body{
+    background-image: url(../images/img4-1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+
+
+  .black-container {
+    background-color: rgba(0, 0, 0, 0.7); 
+    color: white; 
+    padding: 20px; 
+    height: 900px;
+}
+
+.bg-black-translucent {
+    padding: 50px; 
+    margin-top: 0px; 
+    height: 180vh;
+    width: 100vw;
+}
+
+  
+
+.table-custom {
+    width: 100%;
+    margin: 20px 0;
+    background-color: transparent;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px; 
+    overflow: hidden; 
+}
+
+.table-custom th, .table-custom td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.table-custom th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+}
+
+.table-custom tbody tr:nth-child(even) {
+    background-color: rgba(240, 240, 240, 0.5);
+}
+
+.table-custom tbody tr:nth-child(odd) {
+    background-color: rgba(220, 220, 220, 0.5);
+}
+

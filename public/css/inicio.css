@@ -1,0 +1,129 @@
+
+/* Configuracion cultivo-arduino */
+.containers{
+  background-color:rgba(150, 149, 149, 0.616);
+   backdrop-filter: blur(5px);
+padding: 20px;
+margin-left: 200px;
+margin-right: 200px; 
+border-radius: 15px;
+
+}
+
+
+
+/* El logo */
+.logo {
+  max-width: 450px;
+  height: auto;
+  margin: 0 auto; 
+}
+
+
+
+
+
+/* Animación de palpito */
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+      opacity: 1;
+  }
+  50% {
+      transform: scale(1.1);
+      opacity: 0.7;
+  }
+  100% {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+.pulse-animation {
+  animation-name: pulse;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; 
+}
+
+
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#video-background {
+  position: absolute;
+    width: 100%;
+    height: 160%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+  z-index: -1; 
+  color: #1d3329;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+}
+
+
+#hora-actual {
+  font-size: 40px; 
+ }
+
+ 
+h1{
+padding-top: -2dvh;
+text-align: center;
+color: white;
+font-size: 80px;
+animation: float 2s ease-in-out infinite;
+
+
+}
+
+
+
+
+
+    #hora-actual {
+            text-align: center;
+            color: #ffffff;
+            font-size: 40px;
+            animation: float 2s ease-in-out infinite;
+
+        }
+
+        #fecha {
+          text-align: center;
+          color: #ffffff;
+          font-size: 24px; 
+          animation: float 2s ease-in-out infinite;
+
+        }
+
+
+
+
+
+
+
+/* Animación */
+@keyframes float {
+  0%, 100% {
+      transform: translateY(0); 
+  }
+  50% {
+      transform: translateY(-10px); 
+  }
+}
+
+

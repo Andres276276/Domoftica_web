@@ -1,0 +1,129 @@
+#include <WiFi.h>
+#include <Wire.h>
+#include <DHT.h>
+#include <U8g2lib.h>
+
+
+U8G2_SSD1306_128X64_NONAME_F_SW_I2C u8g2(U8G2_R0, /* clock=*/ 22, /* data=*/ 21, /* reset=*/ U8X8_PIN_NONE);
+bool domoSoftwareShown = false; 
+
+
+#define DHTPIN 14
+#define DHTTYPE DHT11
+
+#define SOIL_HUMIDITY_PIN 36 // Humedad de suelo
+#define WATER_FLOW_PIN 4     // Flujo de agua
+
+volatile int pulses;  
+int soilHumidityValue;
+int hum, temp;
+
+const char* ssid = "daniel";
+const char* password = "01002819760";
+const char* host = "192.168.1.4"; 
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void pulseCounter() {
+  pulses++; 
+}
+
+void setup() {
+  Serial.begin(9600);
+  u8g2.begin();
+  u8g2.setFont(u8g2_font_ncenB08_tr);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Conectando al WiFi...");
+  }
+
+  dht.begin();
+  
+  pinMode(WATER_FLOW_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(WATER_FLOW_PIN), pulseCounter, FALLING);
+}
+
+void loop() {
+  hum = dht.readHumidity();
+  temp = dht.readTemperature();
+
+  soilHumidityValue = analogRead(SOIL_HUMIDITY_PIN);
+
+  if (isnan(hum) || isnan(temp)) {
+    Serial.println("Error obteniendo los datos del sensor DHT11");
+    delay(3000);
+    return;
+  }
+
+
+
+ u8g2.firstPage();
+  do {
+    if (!domoSoftwareShown) {
+      int x = (128 - u8g2.getStrWidth("DOMOFTWARE")) / 2;
+      u8g2.drawStr(x, 24, "DOMOFTWARE");
+      domoSoftwareShown = true; 
+      delay(1000); 
+    } else {
+
+u8g2.drawStr(0, 24, "Temperatura: ");
+u8g2.drawStr(90, 24, String(temp).c_str());
+
+u8g2.drawStr(0, 10, "Humedad: ");
+u8g2.drawStr(70, 10, String(hum).c_str());
+
+u8g2.drawStr(0, 38, "Estado de suelo: ");
+u8g2.drawStr(90, 38, String(soilHumidityValue).c_str());
+
+u8g2.drawStr(0, 52, "Flujo de agua: ");
+u8g2.drawStr(90, 52, String(pulses).c_str());
+
+     }
+  } while (u8g2.nextPage());
+
+  Serial.print("Humedad: ");
+  Serial.print(hum);
+  Serial.print("% Temperatura: ");
+  Serial.print(temp);
+  Serial.println(" ºC");
+
+  Serial.print("Humedad de suelo: ");
+  Serial.println(soilHumidityValue);
+
+  Serial.print("Pulsos de flujo de agua: ");
+  Serial.println(pulses);
+
+  // Proceso de envío al servidor
+  Serial.println("Intentando conectar al servidor...");
+
+  WiFiClient client;
+  if (client.connect(host, 80)) {
+    Serial.println("Conexión con el servidor establecida");
+    
+    client.print("GET /arduino/control/conexion_arduino.php?humedad=");
+    client.print(hum);
+    client.print("&temperatura=");
+    client.print(temp);
+    client.print("&humedad_suelo=");
+    client.print(soilHumidityValue);
+    client.print("&flujo_agua=");
+    client.print(pulses);
+    client.println(" HTTP/1.0");
+    client.println("User-Agent: Arduino 1.0");
+    client.println();
+    
+    Serial.println("Envío con éxito");
+    delay(1000);
+    
+    client.stop();
+  } else {
+    Serial.println("Fallo en la conexión");
+    delay(2000);
+  }
+
+  pulses = 0; 
+
+  delay(10000);
+}

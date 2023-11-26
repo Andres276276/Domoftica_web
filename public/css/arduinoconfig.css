@@ -1,0 +1,76 @@
+body{
+    background: url("../images/img6-1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.imgnav{
+width: 100vw;
+margin-top: -90px;
+z-index: 1; 
+
+}
+  .titulo{
+    color: white;
+    text-align: center;
+    letter-spacing: 5px; 
+    z-index: 2; 
+    font-size: 30px;
+
+  }
+
+
+
+.Arduinoconfig {
+    background-color: rgba(41, 41, 41, 0.397);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    margin: 5px auto 0;
+    width: 82%;
+    height: 82%;
+    backdrop-filter: blur(15px);
+
+}
+
+.form-and-editor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    margin: 40px 76px; 
+}
+
+.form-group {
+    width: 48%; 
+}
+
+
+
+textarea {
+    width: 120%;
+    height: 220px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    margin: 40px 96px;
+
+}
+label{
+    color: white;
+}
+
+h2 {
+text-align: center;
+color: white;
+}
+
+h3{
+color: white;
+z-index: 99;
+}

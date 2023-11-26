@@ -1,0 +1,111 @@
+#include <ESP8266WiFi.h>
+
+const char* ssid = "daniel";
+const char* password = "01002819760";
+
+const String Page = R"=====(
+<!DOCTYPE HTML>
+<html>
+<head>
+
+   <title>Agua</title>
+  <style>
+    body {
+      text-align: center;
+      background-color: #133A35; 
+
+    }
+    
+    #toggleButton {
+      background-color: #007BFF;
+      border-radius: 10px; 
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Control Bomba Agua</h1>
+  <button id="toggleButton">On/Off</button>
+  <script>
+    var button = document.getElementById("toggleButton");
+    var estado = document.getElementById("estado");
+    button.onclick = function() {
+      fetch("/toggle")
+        .then(response => response.text())
+        .then(data => {
+          estado.innerText = data;
+        });
+    }
+  </script>
+</body>
+</html>
+)=====";
+
+int relayPin = 2; // Pin conectado al relé
+boolean relayState = true;
+
+WiFiServer server(80);
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, HIGH); 
+
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(9600);
+  Serial.println("Conectado con exito");
+  }
+  Serial.println("Modulo riego manual");
+  Serial.print("Dirección IP: ");
+  Serial.println(WiFi.localIP());
+
+  server.begin();
+}
+
+void loop() {
+  WiFiClient client = server.available();
+
+  if (client) {
+    String currentLine = "";
+    boolean currentLineIsBlank = true;
+
+    while (client.connected()) {
+      if (client.available()) {
+        char character = client.read();
+        currentLine += character;
+
+        if (character == '\n') {
+          if (currentLineIsBlank) {
+            relayState = !relayState;
+            digitalWrite(relayPin, relayState ? HIGH : LOW);
+            responderCliente(client);
+            break;
+          }
+
+          if (currentLine.startsWith("GET /toggle")) {
+            responderCliente(client);
+          }
+
+          currentLine = "";
+          currentLineIsBlank = true;
+        } else if (character != '\r') {
+          currentLineIsBlank = false;
+        }
+      }
+    }
+
+    client.stop();
+  }
+}
+
+void responderCliente(WiFiClient& client) {
+  client.println("HTTP/1.1 200 OK");
+  client.println("Content-Type: text/html");
+  client.println();
+  client.println(Page);
+}
