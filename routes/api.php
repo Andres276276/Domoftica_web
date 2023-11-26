@@ -25,10 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //ADMINISTRADOR
-Route::delete('/users/{id}', [UserController::class, 'eliminar']);      //////////////////////
-Route::get('/users/{id}', [UserController::class, 'buscarporid']);          ///////
-Route::get('/users', [UserController::class, 'traertodos']);               ///////////////
-Route::put('/users/{id}', [UserController::class, 'editarUsuarioPorId']); ////////
+Route::delete('/users/{id}', [UserController::class, 'eliminar']);     
+Route::get('/users/{id}', [UserController::class, 'buscarporid']);         
+Route::get('/users', [UserController::class, 'traertodos']);              
+Route::put('/users/{id}', [UserController::class, 'editarUsuarioPorId']); 
 
 
 //DATOS DE USUARIO, REGISTRO Y TRAERLOS
@@ -56,8 +56,4 @@ Route::delete('/cultivos/{id}', [CultivoController::class, 'eliminar']);
 
 //RELE
 Route::post('/actualizar-rele/{userId}', [RelayStateController::class, 'actualizarRelayState']);
-
-
-//DATOS SENSORES
-Route::post('/sensor-data', [SensorDataController::class, 'store']);
 
