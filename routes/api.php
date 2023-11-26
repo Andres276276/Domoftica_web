@@ -43,6 +43,7 @@ Route::middleware('auth:api')->delete('/eliminar-cuenta', [UserController::class
 //ARDUINO DATOS
 Route::get('/sensor', [SensorController::class, 'M_Datos']);
 Route::delete('/datos_eliminar', [SensorController::class, 'EliminarTodo']);
+Route::post('/sensor-data', [SensorDataController::class, 'store']);
 Route::get('/sensor/ultimalec', [SensorController::class, 'ultimalectura']);
 
 
