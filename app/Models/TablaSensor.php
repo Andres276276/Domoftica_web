@@ -12,36 +12,8 @@ class TablaSensor extends Model
 
     protected $table = 'tabla_sensor';
 
-   
-public function temperatura()
-{
-    return $this->hasOne(Temperatura::class);
-}
+    protected $fillable = ['humedad', 'temperatura', 'humedad_suelo', 'flujo_agua', 'fecha_hora'];
 
-public function humedad()
-{
-    return $this->hasOne(HumedadAmbiente::class);
-}
-
-public function flujoAgua()
-{
-    return $this->hasOne(FlujoAgua::class);
-}
-
-public function estadoTierra()
-{
-    return $this->hasOne(EstadoTierra::class);
-}
-
-
-}
-
-class EstadoTierra extends Model
-{
-    public function controlRiego()
-    {
-        return $this->hasOne(ControlRiego::class);
-    }
 
 }
 
