@@ -38,13 +38,13 @@ class UserController extends Controller
 //LOGIN
 public function login(Request $request)
 {
-    // Validar las credenciales del usuario
+    // Validar
     $this->validate($request, [
         'email' => 'required|email',
         'password' => 'required',
     ]);
 
-    // Intentar autenticar al usuario
+    // Hace el intento de autenticar
     if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
         // Autenticación exitosa
         $user = Auth::user();
@@ -55,10 +55,9 @@ public function login(Request $request)
         // Crear un nuevo token único para el usuario
         $token = $user->createToken('authToken-' . $user->id)->accessToken;
 
-        // Retornar solo el token como respuesta
-        return response()->json(['token' => 'bearer ' . $token]);
+        return response()->json(['message' => 'Inicio de sesión exitoso', 'token' => $token, 'user' => $user]);
     } else {
-        // Autenticación fallida
+        // Autenticación error
         return response()->json(['error' => 'Credenciales incorrectas', 'message' => 'Inicio de sesión fallido'], 401);
     }
 }
