@@ -55,7 +55,8 @@ public function login(Request $request)
         // Crear un nuevo token único para el usuario
         $token = $user->createToken('authToken-' . $user->id)->accessToken;
 
-        return response()->json(['message' => 'Inicio de sesión exitoso', 'token' => $token, 'user' => $user]);
+        // Retornar el token tipo Bearer en la respuesta
+        return response()->json(['message' => 'Inicio de sesión exitoso', 'token' => 'Bearer ' . $token, 'user' => $user]);
     } else {
         // Autenticación error
         return response()->json(['error' => 'Credenciales incorrectas', 'message' => 'Inicio de sesión fallido'], 401);
