@@ -197,4 +197,55 @@ public function logout(Request $request)
 
 
 
+
+
+
+
+
+ public function getProfile(Request $request)
+    {
+        $user = $request->user();
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            // Agrega aquí otros campos que deseas devolver
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        // Validación de datos del formulario
+        $this->validate($request, [
+            // Agrega aquí las reglas de validación según tus necesidades
+        ]);
+
+        // Lógica de actualización de otros campos según tus necesidades
+        $user->fill($request->except(['id', 'name', 'email', 'password'])); // Excluir campos que no deseas actualizar directamente
+
+        // Si deseas actualizar la contraseña, puedes hacerlo aquí
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        $user->save();
+
+        return response()->json([
+            'message' => 'Perfil actualizado con éxito',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                // Agrega aquí otros campos que deseas devolver
+            ],
+        ]);
+    }
+
+
+
+
+
+    
 } 
