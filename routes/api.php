@@ -62,3 +62,10 @@ Route::post('/actualizar-rele/{userId}', [RelayStateController::class, 'actualiz
 //DATOS
 Route::post('/sensor-data', [SensorDataController::class, 'store']);
 
+
+Route::middleware('auth:sanctum')->group(function () {
+    // Ruta para obtener y editar el perfil del usuario
+    Route::get('/profile', [UserController::class, 'getProfile']);
+    Route::put('/profile', [UserController::class, 'updateProfile']);
+});
+
