@@ -213,37 +213,41 @@ public function logout(Request $request)
         ]);
     }
 
-    public function updateProfile(Request $request)
-    {
-        $user = $request->user();
 
-        // Validación de datos del formulario
-        $this->validate($request, [
-            // Agrega aquí las reglas de validación según tus necesidades
-        ]);
 
-        // Lógica de actualización de otros campos según tus necesidades
-        $user->fill($request->except(['id', 'name', 'email', 'password'])); // Excluir campos que no deseas actualizar directamente
+public function updateProfile(Request $request)
+{
+    $user = $request->user();
 
-        // Si deseas actualizar la contraseña, puedes hacerlo aquí
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->input('password'));
-        }
+    // Validación de datos del formulario
+    $this->validate($request, [
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'password' => 'nullable|string|min:6', // La contraseña es opcional y debe tener al menos 6 caracteres
+        // Puedes agregar otras reglas de validación según tus necesidades
+    ]);
 
-        $user->save();
+    // Lógica de actualización de campos específicos
+    $user->name = $request->input('name');
+    $user->email = $request->input('email');
 
-        return response()->json([
-            'message' => 'Perfil actualizado con éxito',
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                // Agrega aquí otros campos que deseas devolver
-            ],
-        ]);
+    // Si se proporciona una nueva contraseña, actualízala
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->input('password'));
     }
 
+    $user->save();
 
+    return response()->json([
+        'message' => 'Perfil actualizado con éxito',
+        'user' => [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            // Puedes agregar otros campos que deseas devolver
+        ],
+    ]);
+}
 
 
 
