@@ -53,10 +53,8 @@ public function login(Request $request)
         ]);
     }
 
-    // Revocar tokens existentes para el usuario (opcional)
     $user->tokens()->delete();
 
-    // Crear un nuevo token único para el usuario con Sanctum
     $token = $user->createToken('authToken-' . $user->id)->plainTextToken;
 
     return response()->json(['message' => 'Inicio de sesión exitoso', 'token' => $token, 'user' => $user]);
@@ -76,7 +74,7 @@ public function logout(Request $request)
 //REGISTRO ADMIN
      public function registroad(Request $request)
     {
-        // Validar los datos users 
+        // Valid
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -126,10 +124,8 @@ public function logout(Request $request)
     public function update(Request $request)
     {
         try {
-            // Obtén el usuario autenticado
             $user = Auth::user();
 
-            // Validar los campos que deseas permitir editar
             $this->validate($request, [
                 'name' => 'string',
                 'email' => 'email|unique:users,email,' . $user->id,
@@ -137,7 +133,6 @@ public function logout(Request $request)
                 'id_cargo' => 'integer',
             ]);
 
-            // Actualizar los campos del usuario
             $user->fill($request->only(['name', 'email', 'password', 'id_cargo']));
 
             $user->save();
@@ -201,7 +196,7 @@ public function logout(Request $request)
 
 
 
-
+//VER PERFIL
  public function getProfile(Request $request)
     {
         $user = $request->user();
@@ -209,29 +204,24 @@ public function logout(Request $request)
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            // Agrega aquí otros campos que deseas devolver
         ]);
     }
 
 
-
+//ACTUALIZAR PERFIL
 public function updateProfile(Request $request)
 {
     $user = $request->user();
 
-    // Validación de datos del formulario
     $this->validate($request, [
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email,' . $user->id,
-        'password' => 'nullable|string|min:6', // La contraseña es opcional y debe tener al menos 6 caracteres
-        // Puedes agregar otras reglas de validación según tus necesidades
+        'password' => 'nullable|string|min:6', 
     ]);
 
-    // Lógica de actualización de campos específicos
     $user->name = $request->input('name');
     $user->email = $request->input('email');
 
-    // Si se proporciona una nueva contraseña, actualízala
     if ($request->filled('password')) {
         $user->password = Hash::make($request->input('password'));
     }
@@ -244,7 +234,6 @@ public function updateProfile(Request $request)
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            // Puedes agregar otros campos que deseas devolver
         ],
     ]);
 }
