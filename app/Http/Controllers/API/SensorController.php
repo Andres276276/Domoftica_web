@@ -14,10 +14,8 @@ class SensorController extends Controller
     {
         $sensorData = TablaSensor::all();
 
-        return response()->json([
-            'message' => 'Datos obtenidos correctamente',
-            'data' => $sensorData,
-        ], 200);
+        return response()->json($sensorData);
+
     }
 
     //Eliminar todos los registros 
