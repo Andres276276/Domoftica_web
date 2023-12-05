@@ -16,4 +16,21 @@ class SensorDataController extends Controller
 
         return response()->json(['message' => 'Data stored successfully'], 201);
     }
+
+//lectura ultima web
+        public function ultimalectura()
+    {
+        try {
+            $latestReading = TablaSensor::latest('id')->first(); // Obtén el registro más reciente según la ID
+            if ($latestReading) {
+                return response()->json(['data' => $latestReading]);
+            } else {
+                return response()->json(['message' => 'No hay lecturas disponibles.']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    
 }
