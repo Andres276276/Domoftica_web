@@ -46,6 +46,7 @@ Route::get('/sensor', [SensorController::class, 'M_Datos']);
 Route::post('/sensor-data', [SensorDataController::class, 'store']);
 Route::delete('/datos_eliminar', [SensorController::class, 'EliminarTodo']);
 Route::get('/sensor/ultimalec', [SensorController::class, 'ultimalectura']);
+Route::get('/sensor/ultimalec', [SensorController::class, 'ultimalecturamovil']);
 
 
 //CULTIVO PARA VER CULTIVOS, VER POR ID y REGISTRAR CULTIVOS
