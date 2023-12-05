@@ -26,8 +26,8 @@ class SensorController extends Controller
         return response()->json(['message' => 'Todos los registros eliminados correctamente']);
     }
 
-//Ver la lectura mas reciente
-  public function ultimalectura()
+//Ver la lectura mas reciente movil
+  public function ultimalecturamovil()
 {
     try {
         $latestReading = TablaSensor::latest('id')->first(); // Obtén el registro más reciente según la ID
@@ -42,7 +42,23 @@ class SensorController extends Controller
     }
 }
 
+//Ultima lectura web
+  public function ultimalectura()
+{
+    try {
+        $latestReading = TablaSensor::latest('id')->first(); // Obtén el registro más reciente según la ID
+        if ($latestReading) {
+            return response()->json(['data' => $latestReading]);
+            // Devuelve la última lectura como una lista en lugar de un objeto JSON
+            return response()->json([$latestReading]);
+        } else {
+            return response()->json(['message' => 'No hay lecturas disponibles.']);
+        }
+}
+   
 
+
+    
 
 
 }
