@@ -10,7 +10,7 @@ class SensorController extends Controller
 {
 
     //Mostrar todos los registros de los sensores
-    public function M_Datos()
+    public function M_Datosmovil()
     {
         $sensorData = TablaSensor::all();
 
