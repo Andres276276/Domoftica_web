@@ -45,7 +45,7 @@ Route::middleware('auth:api')->delete('/eliminar-cuenta', [UserController::class
 Route::get('/sensor', [SensorController::class, 'M_Datos']);
 Route::post('/sensor-data', [SensorDataController::class, 'store']);
 Route::delete('/datos_eliminar', [SensorController::class, 'EliminarTodo']);
-Route::get('/sensor/ultimalec', [SensorController::class, 'ultimalectura']);
+Route::get('/sensor/ultimalec', [SensorDataController::class, 'ultimalectura']);
 Route::get('/sensor/ultimalecw', [SensorController::class, 'ultimalecturamovil']);
 
 
