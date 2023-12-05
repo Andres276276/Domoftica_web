@@ -32,5 +32,16 @@ class SensorDataController extends Controller
         }
     }
 
+
+        public function M_Datos()
+    {
+        $sensorData = TablaSensor::all();
+
+        return response()->json([
+            'message' => 'Datos obtenidos correctamente',
+            'data' => $sensorData,
+        ], 200);
+    }
+    
     
 }
