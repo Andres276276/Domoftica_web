@@ -43,20 +43,21 @@ class SensorController extends Controller
 }
 
 //Ultima lectura web
-  public function ultimalectura(){
+
+public function ultimalectura()
+{
     try {
         $latestReading = TablaSensor::latest('id')->first(); // Obtén el registro más reciente según la ID
         if ($latestReading) {
             return response()->json(['data' => $latestReading]);
-            // Devuelve la última lectura como una lista en lugar de un objeto JSON
-            return response()->json([$latestReading]);
         } else {
             return response()->json(['message' => 'No hay lecturas disponibles.']);
         }
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
 }
-   
 
 
 
-  } 
 }
