@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware('auth:api')->delete('/eliminar-cuenta', [UserController::class, 'eliminarCuentapropia']);
 
 //ARDUINO DATOS
-Route::get('/sensor', [SensorController::class, 'M_Datos']);
+Route::get('/sensor', [SensorDataController::class, 'M_Datos']);
 Route::get('/sensorm', [SensorController::class, 'M_Datosmovil']);
 Route::post('/sensor-data', [SensorDataController::class, 'store']);
 Route::delete('/datos_eliminar', [SensorController::class, 'EliminarTodo']);
