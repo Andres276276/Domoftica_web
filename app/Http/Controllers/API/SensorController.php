@@ -43,8 +43,7 @@ class SensorController extends Controller
 }
 
 //Ultima lectura web
-  public function ultimalectura()
-{
+  public function ultimalectura(){
     try {
         $latestReading = TablaSensor::latest('id')->first(); // Obtén el registro más reciente según la ID
         if ($latestReading) {
@@ -58,7 +57,6 @@ class SensorController extends Controller
    
 
 
-    
 
-
+  } 
 }
